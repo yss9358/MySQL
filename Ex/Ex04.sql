@@ -46,13 +46,29 @@ on e.department_id = d.department_id
 
 -- 오른쪽 테이블을 기준으로 조인
 -- (Treasury, Corporate Tax 등 16개의 부서명이 결과에 있어야함 : 부서인원이 없는 부서명)
-select *
-from employees e, departments d
-where e.department_id = d.department_id
+select  e.department_id
+	   ,e.first_name
+       ,d.department_name
+from employees e
+right outer join departments d
+			  on e.department_id = d.department_id
 ;
 
+-- ---------------------------------
+-- # FULL OUTER JOIN -> UNION
+-- ---------------------------------
 
+-- MySQL 은 full outer join 문법이 없음 
+-- 따라서 각각의 결과를 구해서 합쳐야 함 -> union
 
+select  e.employee_id
+	   ,e.department_id
+       ,e.first_name
+       ,d.department_name
+from employees e
+	left join departments d
+		   on e.department_id = d.department_id
+;
 
 
 
